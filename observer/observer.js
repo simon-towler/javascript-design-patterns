@@ -82,3 +82,32 @@ function extend( extension, obj ){
     obj[key] = extension[key];
   }
 }
+
+/* Model the subject
+ * and the ability to add, remove, or notify observers on the observer list.*/
+
+ function Subject(){
+   this.observers = new ObserverList();
+ }
+
+ Subject.prototype.AddObserver = function( observer ){
+   this.observers.Add( observer );
+ };
+
+ Subject.prototyp.RemoveObserver = function( observer ){
+   this.observers.RemoveAt( this.observers.IndexOf( observer, 0) );
+ };
+
+ Subject.prototype.Notify = function( context ){
+
+   //take a snapshot of observers.Count at the start of the loop
+   var observerCount = this.observers.Count();
+
+   /* get each observer in the list in turn
+    * and call .Update on it
+    * passing in a context
+    */
+   for(var i=0; i < observerCount; i++){
+     this.observers.Get(i).Update( context );
+   }
+ }
