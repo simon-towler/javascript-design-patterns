@@ -18,15 +18,18 @@ function ObserverList() {
 ObserverList.prototype.Add = function( obj ){
   //push the given obj and return the new length of ObserverList
   return this.observerList.push( obj );
+  console.log("ObserverList.Add called.");
 };
 
 ObserverList.prototype.Empty = function(){
   //empties the ObserverList but does not return it
   this.observerList = [];
+  console.log("ObserverList.Empty called.");
 };
 
 ObserverList.prototype.Count = function(){
   return this.observerList.length;
+  console.log("ObserverList.Count called.");
 };
 
 ObserverList.prototype.Get = function( index ){
@@ -34,6 +37,7 @@ ObserverList.prototype.Get = function( index ){
   if( index > -1 && index < this.observerList.length ){
     return this.observerList[ index ];
   }
+  console.log("ObserverList.Get called");
 };
 
 ObserverList.prototype.Insert = function( obj, index ){
@@ -49,6 +53,7 @@ ObserverList.prototype.Insert = function( obj, index ){
   }
 
   return pointer;
+  console.log("ObserverList.Insert called.");
 };
 
 ObserverList.prototype.IndexOf = function( obj, startIndex ){
@@ -63,6 +68,7 @@ ObserverList.prototype.IndexOf = function( obj, startIndex ){
   }
 
   return pointer;
+  console.log("ObserverList.IndexOf called.");
 };
 
 ObserverList.prototype.RemoveIndexAt = function( index ){
@@ -73,6 +79,7 @@ ObserverList.prototype.RemoveIndexAt = function( index ){
   }else if( index === this.observerList.length -1 ){
     this.observerList.pop();
   }
+  console.log("ObserverList.RemoveIndexAt called.");
 };
 
 // Extend an object with an extension
@@ -81,6 +88,7 @@ function extend( extension, obj ){
   for ( var key in extension ){
     obj[key] = extension[key];
   }
+  console.log("function extend called.");
 }
 
 /* Model the subject
@@ -88,14 +96,17 @@ function extend( extension, obj ){
 
  function Subject(){
    this.observers = new ObserverList();
+   console.log("New Subject instantiated.");
  }
 
  Subject.prototype.AddObserver = function( observer ){
    this.observers.Add( observer );
+   console.log("Subject.AddObserver called.");
  };
 
- Subject.prototyp.RemoveObserver = function( observer ){
+ Subject.prototype.RemoveObserver = function( observer ){
    this.observers.RemoveAt( this.observers.IndexOf( observer, 0) );
+   console.log("Subjecct.RemoveObserver called.");
  };
 
  Subject.prototype.Notify = function( context ){
@@ -110,4 +121,18 @@ function extend( extension, obj ){
    for(var i=0; i < observerCount; i++){
      this.observers.Get(i).Update( context );
    }
+   console.log("Subject.Notify called.");
  }
+
+ /* Define a skeleton for creating new Observers.
+  * The Update funcitonality here will be overwritten
+  * later with custom behaviour.
+  */
+
+  //The Observer
+  function Observer(){
+    this.Update = function(){
+      //Abstract. Will be implemented by Concretions
+    };
+    console.log("New Observer instantiated.");
+  }

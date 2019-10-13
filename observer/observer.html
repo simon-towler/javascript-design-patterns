@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Observer design pattern demo</title>
+  <meta name="description" content="A demo of Observer pattern">
+  <meta name="author" content="Addy Osmani">
+
+</head>
+
+<body>
+  <script src="observer.js"></script>
+
+  <button id="addNewObserver">Add New Observer checkbox</button>
+  <input id="mainCheckbox" type="checkbox"/>
+  <div id="observersContainer"></div>
+
+  <script>
+
+    //References to our DOM elements
+    var controlCheckbox = document.getElementById( "mainCheckbox" ),
+      addBtn = document.getElementById( "addNewObserver"),
+      container = document.getElementById( "observersContainer" );
+
+    alert("Implementing the Observer pattern between chekbox and dependents.")
+
+    //Concrete Subject
+
+    //Extend the controlling checkbox with the Subject class
+    extend( new Subject(), controlCheckbox );
+    alert("Made the checkbox extend Subject.");
+
+    //Clicking the checkbox will trigger notifications to its observers
+    controlCheckbox["onclick"] = new Function(
+      "controlCheckbox.Notify(controlCheckbox.checked)" ); //.checked is boolean
+    alert("Set onclick of checkbox to Subject.Notify its checked status, t/f.")
+
+    addBtn["onclick"] = AddNewObserver;
+    alert("Set the onclick of the Add btn to AddNewObserver. Click it.");
+
+
+    //Concrete Observer
+
+    function AddNewObserver(){
+      //Create a new checkbox to be added
+      var check = document.createElement( "input" );
+      check.type = "checkbox";
+      alert("AddNewObserver called to make a new checkbox.");
+
+      //Extend the checkbox with the Observer class
+      extend( new Observer(), check );
+      alert("AddNewObserver made new checkbox extend Observer.")
+
+      //Override with custom update behaviour
+      check.Update = function( value ){
+        this.checked = value;
+        console.log("Observer.Update called.");
+      };
+      alert("AddNewObserver overrode Observer.Update on the new checkbox.");
+      alert(check.Update);//displays the function used as the override.
+
+      //Add the new observer to our list of observers
+      //for our main Subject
+      controlCheckbox.AddObserver( check );
+      alert("Subject.AddObserver adds new box to first checkbox Observers.");
+
+      //Append the item to the container
+      container.appendChild( check );
+
+      alert("Now click the original first checkbox. Watch dependents update.")
+
+    }
+  </script>
+</body>
+</html>
