@@ -111,7 +111,7 @@ function extend( extension, obj ){
 
  Subject.prototype.Notify = function( context ){
 
-   //take a snapshot of observers.Count at the start of the loop
+   //take a snapshot of observers.Count at the start of a loop
    var observerCount = this.observers.Count();
 
    /* get each observer in the list in turn

@@ -29,16 +29,17 @@
     //Concrete Subject
 
     //Extend the controlling checkbox with the Subject class
-    extend( new Subject(), controlCheckbox );
+    extend( new Subject(), controlCheckbox );//makes controlCheckobox a Subject
     alert("Made the checkbox extend Subject.");
 
     //Clicking the checkbox will trigger notifications to its observers
-    controlCheckbox["onclick"] = new Function(
+    controlCheckbox["onclick"] = new Function(//built-in Function constructor
+      //sole parameter here is the statement comprising the function
       "controlCheckbox.Notify(controlCheckbox.checked)" ); //.checked is boolean
     alert("Set onclick of checkbox to Subject.Notify its checked status, t/f.")
 
     addBtn["onclick"] = AddNewObserver;
-    alert("Set the onclick of the Add btn to AddNewObserver. Click it.");
+    alert("Set onclick of the Add btn to AddNewObserver. Now you, click it!");
 
 
     //Concrete Observer
